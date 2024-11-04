@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Cadastro de Serviços</title>
+    <link href="estilo.css" rel="stylesheet" type="text/css" />
+    <script src="script.js"></script>
+</head>
+
+<body class="body_s">
+    <div class="header">
+        <a href="cad_fornecedor.html">Fornecedor</a>
+        <a href="cad_funcionario.html">Funcionários</a>
+        <a href="cad_quarto.html">Quartos</a>
+        <a href="cad_serviços.html">Serviços</a>
+        <a href="cad_tipo_quarto.html">Tipo Quartos</a>
+        <a href="cadprod.html">Produtos</a>
+        <a href="cad_cliente.html">Clientes</a>
+        <a href="checkin.html">Check in</a>
+        <a href="checkout.html">Check out</a>
+    </div>
+    <div class="container">
+        <h1>Cadastro de Serviços</h1>
+        <div class="form-group">
+            <label for="nome_servico">Nome do Serviço:</label>
+            <input type="text" id="nome_servico" name="nome_servico" required>
+        </div>
+        <div class="form-group">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" required>
+        </div>
+        <div class="form-group">
+            <label for="tipo_servico">Tipo de Serviço:</label>
+            <select id="tipo_servico" name="tipo_servico">
+                <option value="limpeza">Limpeza</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="alimentacao">Alimentação</option>
+                <option value="lavanderia">Lavanderia</option>
+                <!-- Adicione mais opções aqui conforme necessário -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_quarto">ID do Quarto:</label>
+            <input type="text" id="id_quarto" name="id_quarto" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" onclick="cadastrar_servico()">Cadastrar</button>
+        </div>
+        
+    </div>
+
+    
+</body>
+
+</html>

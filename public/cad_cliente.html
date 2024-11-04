@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Cadastro Cliente</title>
+    <link href="estilo.css" rel="stylesheet" type="text/css" />
+    <script src="script.js"></script>
+</head>
+
+<body class="body_c">
+    <div class="header">
+        <a href="cad_fornecedor.html">Fornecedor</a>
+        <a href="cad_funcionario.html">Funcionários</a>
+        <a href="cad_quarto.html">Quartos</a>
+        <a href="cad_serviços.html">Serviços</a>
+        <a href="cad_tipo_quarto.html">Tipo Quartos</a>
+        <a href="cadprod.html">Produtos</a>
+        <a href="cad_cliente.html">Clientes</a>
+        <a href="checkin.html">Check in</a>
+        <a href="checkout.html">Check out</a>
+    </div>
+    <div class="container">
+        <h1>Cadastro do Cliente</h1>
+        <div class="form-group">
+            <label for="name_cl">Nome do cliente:</label>
+            <input type="text" id="name_cl" name="name" placeholder="Nome do cliente" required>
+        </div>
+        <div class="form-group">
+            <label for="email_cl">Email do cliente:</label>
+            <input type="text" id="email_cl" name="email" placeholder="Email do cliente" required>
+        </div>
+        <div class="form-group">
+            <label for="phone_cl">Número de telefone:</label>
+            <input type="text" id="phone_cl" name="phone" placeholder="(00) 00000-0000">
+        </div>
+        <div class="form-group">
+            <label for="phoneType_cl">Marcador:</label>
+            <select id="phoneType_cl" name="phoneType">
+                <option value="nenhum">Nenhum Marcador</option>
+                <option value="celular">Celular</option>
+                <option value="comercial">Comercial</option>
+                <option value="casa">Casa</option>
+                <option value="principal">Principal</option>
+                <option value="faxcomer">Fax comercial</option>
+                <option value="faxresi">Fax residencial</option>
+                <option value="pager">Pager</option>
+                <option value="outros">Outros</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="address_cl">Endereço do cliente:</label>
+            <input type="text" id="address_cl" name="address" placeholder="Endereço do cliente" required>
+        </div>
+        <div class="form-group">
+            <label for="Doc_cl">Documento:</label>
+            <input type="text" id="Doc_cl" name="Doc" placeholder="Digite seu documento" required>
+        </div>
+        <div class="form-group">
+            <label for="tp_doc_cl">Tipo de Documento:</label>
+            <select id="tp_doc_cl" name="tipodoc">
+                <option value="CPF">CPF</option>
+                <option value="Passaporte">Passaporte</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="codigo_cl">Código:</label>
+            <input type="text" id="codigo_cl" name="codigo" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="estado_cl">Estado:</label>
+            <input type="text" id="estado_cl" name="estado" placeholder="Estado">
+        </div>
+        <div class="form-group">
+            <label for="cidade_cl">Cidade:</label>
+            <input type="text" id="cidade_cl" name="cidade" placeholder="Cidade">
+        </div>
+        <div class="form-group">
+            <button type="submit" onclick="cadastrar_cl()">Cadastrar</button>
+        </div>
+        <p>Nome: <span id="teste"></span></p>
+        
+    </div>
+
+    
+</body>
+
+</html>
