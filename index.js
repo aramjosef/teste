@@ -285,15 +285,14 @@ app.post('/cadastrar_funcionario', (req, res) => {
               func_end,
               func_cep,
               func_sex,
-              func_pes,
               func_grau,
               func_pis,
               func_data_ad,
               func_cart,
               func_serie,
               func_set } = req.body;
-    db.run(`INSERT INTO funcionarios (nome, cpf, data_nasc, municipio, uf, endereco, cep, sexo, grau_instrucao, pis_pasep, data_adm, Cart_trabalho, serie, setor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [   func_nm,
+    db.run("INSERT INTO funcionarios (nome, cpf, data_nasc, municipio, uf, endereco, cep, sexo, grau_instrucao, pis_pasep, data_adm, Cart_trabalho, serie, setor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [func_nm,
             func_cpf,
             func_nasc,
             func_muni,
@@ -301,14 +300,13 @@ app.post('/cadastrar_funcionario', (req, res) => {
             func_end,
             func_cep,
             func_sex,
-            func_pes,
             func_grau,
             func_pis,
             func_data_ad,
             func_cart,
             func_serie,
             func_set],
-        (err) => {
+        function (err) {
             if (err) {
                 console.error('Erro ao cadastrar funcionário:', err);
                 res.status(500).send('Erro ao cadastrar funcionário');
