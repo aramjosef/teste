@@ -24,41 +24,20 @@
     <div class="container">
         <h1>Cadastro de Tipo de Quarto</h1>
         <div class="form-group">
-            <label for="id_quarto">ID do Quarto:</label>
-            <input type="text" id="id_quarto" name="id_quarto" value="" readonly>
-        </div>
-        <div class="form-group">
             <label for="tipo_quarto">Tipo de Quarto:</label>
             <select id="tipo_quarto" name="tipo_quarto">
                 <option value="simples">Simples</option>
                 <option value="duplo">Duplo</option>
                 <option value="suite">Suíte</option>
-                <!-- Adicione mais opções aqui conforme necessário -->
             </select>
         </div>
         <div class="form-group">
             <label for="caracteristicas">Características do Quarto:</label>
-            <textarea id="caracteristicas" name="caracteristicas" rows="4" cols="50"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="equipamentos">Equipamentos:</label>
-            <select id="equipamentos" name="equipamentos">
-                <option value="ar_condicionado">Ar Condicionado</option>
-                <option value="tv">TV</option>
-                <option value="frigobar">Frigobar</option>
-                <option value="camas">Camas</option>
-                <option value="banheiros">Banheiros</option>
-                <option value="armarios">Armários</option>
-                <option value="outros">Outros</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="quantidade_itens">Quantidade de Itens:</label>
-            <input type="number" id="quantidade_itens" name="quantidade_itens" required>
-        </div>
+            <textarea id="caracteristicas" name="caracteristicas" rows="4" cols="50" placeholder="Características do Quarto"></textarea>
+        
         <div class="form-group">
             <label for="descricao">Descrição do Quarto:</label>
-            <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
+            <textarea id="descricao" name="descricao" rows="4" cols="50" placeholder="Descrição do Quarto"></textarea>
         </div>
         <div class="form-group">
             <button type="submit" onclick="cadastrar_tipo_quarto()">Cadastrar</button>

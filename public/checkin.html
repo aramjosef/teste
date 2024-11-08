@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             <label for="numero_quarto">Número do Quarto:</label>
-            <input type="number" id="numero_quarto" name="numero_quarto" required>
+            <input type="number" id="numero_quarto" name="numero_quarto" placeholder="Número do quarto" required>
         </div>
         <div class="form-group">
             <label for="data_en">Data de entrada:</label>
@@ -48,10 +48,27 @@
         </div>
         <div class="form-group">
             <button type="submit" onclick="cadastrar_ci()">Cadastrar</button>
+            <button onclick="consultarCheckin(event)" type="submit">Consultar Check-In</button>
         </div>
         
     </div>
-
+    <div id="resultadoConsulta">
+        <h3>Resultados da Consulta</h3>
+        <table id="tabelaCheckin">
+            <thead>    
+                <tr>
+                    <th>id</th>
+                    <th>Quarto</th>
+                    <th>Entrada</th>
+                    <th>Saída</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Resultados da consulta serão inseridos aqui pelo script -->
+            </tbody>
+        </table>
+    </div>
     
 </body>
 

@@ -24,12 +24,12 @@
     <div class="container">
         <h1>Cadastro de Serviços</h1>
         <div class="form-group">
-            <label for="nome_servico">Nome do Serviço:</label>
-            <input type="text" id="nome_servico" name="nome_servico" required>
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade de serviço" required>
         </div>
         <div class="form-group">
-            <label for="quantidade">Quantidade:</label>
-            <input type="number" id="quantidade" name="quantidade" required>
+            <label for="descricao">descrição serviço:</label>
+            <input type="text" id="descricao" name="descricao" placeholder="Descrição do serviço" required>
         </div>
         <div class="form-group">
             <label for="tipo_servico">Tipo de Serviço:</label>
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group">
             <label for="id_quarto">ID do Quarto:</label>
-            <input type="text" id="id_quarto" name="id_quarto" required>
+            <input type="text" id="id_quarto" name="id_quarto" placeholder="Número do quarto" required>
         </div>
         <div class="form-group">
             <button type="submit" onclick="cadastrar_servico()">Cadastrar</button>
