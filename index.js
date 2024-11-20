@@ -363,54 +363,6 @@ app.post('/cadastrar_ci', (req, res) => {
         });
 });
 
-// Rota para consultar checkin
-app.get('/consultar-checkin', (req, res) => {
-    const { id, numero_quarto, data_en, data_sai, status } = req.query;
-
-    let sql = `
-        SELECT 
-            checkins.id,
-            checkins.numero_quarto, 
-            checkins.data_en, 
-            checkins.data_sai, 
-            clientes.nome AS nome_cliente, 
-        FROM 
-            checkins
-        JOIN 
-            clientes ON checkins.idCliente = clientes.id
-        WHERE 1=1
-    `;
-    const params = [];
-
-    if (id) {
-        sql += " AND checkins.id = ?";
-        params.push(id);
-    }
-    if (numero_quarto) {
-        sql += " AND checkins.numero_quarto = ?";
-        params.push(numero_quarto);
-    }
-    if (data_en) {
-        sql += " AND checkins.data_en = ?";
-        params.push(data_en);
-    }
-    if (data_sai) {
-        sql += " AND checkins.data_sai = ?";
-        params.push(data_sai);
-    }
-    if (status) {
-        sql += " AND checkins.status = ?";
-        params.push(status);
-    }
-    
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-            console.error('Erro ao consultar check-in:', err);
-            return res.status(500).send('Erro ao consultar check-in.');
-        }
-        res.json(rows);
-    });
-});
 
 // Rota para cadastrar um checkout
 app.post('/cadastrar_co', (req, res) => {
@@ -420,7 +372,7 @@ app.post('/cadastrar_co', (req, res) => {
               dt_sa,
               total,
               status } = req.body;
-    db.run(`INSERT INTO checkouts (id_cliente2,numero_quarto, data_entrada, data_saida, status) VALUES (?, ?, ?, ?, ?)`,
+    db.run(`INSERT INTO checkouts (id_cliente2, numero_quarto, data_entrada, data_saida, total_pagamento, status) VALUES (?, ?, ?, ?, ?, ?)`,
         [  id_cliente2,
             n_quarto,
             dt_en,
@@ -432,20 +384,6 @@ app.post('/cadastrar_co', (req, res) => {
                 res.status(500).send('Erro ao cadastrar checkout');
             } else {
                 res.send('Checkout cadastrado com sucesso!');
-            }
-        });
-});
-
-// Rota para cadastrar uma reserva
-app.post('/cadastrar-reserva', (req, res) => {
-    const { data_reserva, data_checkin, data_checkout, numero_quarto, cliente_id } = req.body;
-    db.run(`INSERT INTO reservas (data_reserva, data_checkin, data_checkout, numero_quarto, cliente_id) VALUES (?, ?, ?, ?, ?)`,
-        [data_reserva, data_checkin, data_checkout, numero_quarto, cliente_id], (err) => {
-            if (err) {
-                console.error('Erro ao cadastrar reserva:', err);
-                res.status(500).send('Erro ao cadastrar reserva');
-            } else {
-                res.send('Reserva cadastrada com sucesso!');
             }
         });
 });
@@ -578,21 +516,7 @@ app.get('/buscar-checkout', (req, res) => {
         });
 });
 
-// Rota para buscar reservas
-app.get('/buscar-reserva', (req, res) => {
-    const query = req.query.query;
 
-    // Busca no banco de dados com base no número do quarto, data de reserva, data de checkin ou data de checkout
-    db.all(`SELECT id, data_reserva, data_checkin, data_checkout, numero_quarto, cliente_id FROM reservas WHERE numero_quarto LIKE ? OR data_reserva LIKE ? OR data_checkin LIKE ? OR data_checkout LIKE ?`,
-        [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar reservas:', err);
-                res.status(500).send('Erro ao buscar reservas');
-            } else {
-                res.json(rows);  // Retorna as reservas encontradas
-            }
-        });
-});
 
 // Iniciando o servidor
 app.listen(port, () => {

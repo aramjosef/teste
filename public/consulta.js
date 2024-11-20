@@ -1,123 +1,88 @@
-// Função para consultar agendamentos
-function consultarAgendamentos(event) {
-    event.preventDefault();
+async function consultar() {
+    const Doc_cl = document.getElementById('Doc_cl').value;
+    const num_q = document.getElementById('numero_quarto').value
+    const status = document.getElementById('status_quarto').value;
+    const dt_en = document.getElementById('data_en').value;
+    const dt_sa = document.getElementById('data_sa').value;
 
-    const cpfCliente = document.getElementById("cpfCliente").value;
-    const cpfProfissional = document.getElementById("cpfProfissional").value;
-    const data = document.getElementById("dataAgendamento").value;
+    const queryParams = new URLSearchParams();
+    if (Doc_cl) queryParams.append('Doc_cl', Doc_cl);
+    if (num_q) queryParams.append('numero_quarto', num_q);
+    if (status) queryParams.append('status_quarto', status);
+    if (dt_en) queryParams.append('data_en', dt_en);
+    if (dt_sa) queryParams.append('data_sa', dt_sa);
 
-    const tabelaAgendamentos = document.getElementById("tabelaAgendamentos").querySelector("tbody");
-    tabelaAgendamentos.innerHTML = "";
+    // Faz a requisição para a rota de consulta
+    const response = await fetch(`/consultar-alunos?${queryParams.toString()}`);
 
-    const params = new URLSearchParams({
-        cpf_cliente: cpfCliente,
-        cpf_profissional: cpfProfissional,
-        data: data,
+    // Verifica se a resposta foi bem sucedida
+    if (!response.ok) {
+        console.error('Erro ao consultar alunos:', response.statusText);
+        return;
+    }
+
+    const alunos = await response.json();
+    console.log('Alunos retornados:', alunos); // Adiciona log para verificar dados retornados
+    const tabelaResultados = document.getElementById('resultadoConsulta');
+    const tbody = tabelaResultados.querySelector('tbody');
+    tbody.innerHTML = ''; // Limpa a tabela antes de adicionar resultados
+
+    if (alunos.length > 0) {
+        tabelaResultados.style.display = 'table';
+        alunos.forEach(aluno => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${aluno.Doc_cl}</td>
+                <td>${aluno.num_q}</td>
+                <td>${aluno.status}</td>
+                <td>${aluno.dt_en}</td>
+                <td>${aluno.dt_sa}</td>
+            `;
+            tbody.appendChild(row);
+        });
+      alert("ok");
+    } else {
+        tabelaResultados.style.display = 'none';
+        alert('Nenhum aluno encontrado com os critérios informados.');
+    }
+}
+
+app.get('/consultar-alunos', (req, res) => {
+    const { Doc_cl, num_q, status, dt_en, dt_sa } = req.query;
+
+    let sql = "SELECT clientes.documento, quartos.numero, quartos.status AS materia, notas.nota FROM alunos LEFT JOIN notas ON alunos.cgm = notas.cgm_aluno WHERE 1=1"; // 1=1 para facilitar a construção da query
+    let params = [];
+
+    if (nome) {
+        sql += " AND alunos.nome LIKE ?";
+        params.push(`%${nome}%`); // Adiciona o parâmetro da busca
+    }
+
+    if (cgm) {
+        sql += " AND alunos.cgm LIKE ?";
+        params.push(`%${cgm}%`); // Adiciona o parâmetro da busca
+    }
+
+    if (materia) {
+        sql += " AND notas.disciplina LIKE ?";
+        params.push(`%${materia}%`); // Adiciona o parâmetro da busca
+    }
+
+    if (notaMin) {
+        sql += " AND notas.nota >= ?";
+        params.push(notaMin); // Adiciona o parâmetro da busca
+    }
+
+    if (notaMax) {
+        sql += " AND notas.nota <= ?";
+        params.push(notaMax); // Adiciona o parâmetro da busca
+    }
+
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            console.error('Erro ao consultar alunos:', err);
+            return res.status(500).send('Erro ao consultar alunos.');
+        }
+        res.json(rows); // Retorna os alunos encontrados
     });
-
-    fetch(`/consultar-agendamentos?${params}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro na consulta');
-            }
-            return response.json();
-        })
-        .then(agendamentos => {
-            agendamentos.forEach(agendamento => {
-                const row = tabelaAgendamentos.insertRow();
-                row.insertCell(0).innerText = agendamento.id;
-                row.insertCell(1).innerText = agendamento.data;
-                row.insertCell(2).innerText = agendamento.horario;
-                row.insertCell(3).innerText = agendamento.sala;
-                row.insertCell(4).innerText = agendamento.nome_cliente;
-                row.insertCell(5).innerText = agendamento.nome_profissional;
-
-
-                const actionsCell = row.insertCell(6);
-                actionsCell.innerHTML = `
-                    <button onclick="excluirAgendamento('${agendamento.id}')">Excluir</button>
-                    <button onclick="carregarAgendamentoParaEdicao('${agendamento.id}')">Editar</button>
-                `;
-            });
-
-            if (agendamentos.length === 0) {
-                const row = tabelaAgendamentos.insertRow();
-                row.insertCell(0).colSpan = 5;
-                row.cells[0].innerText = "Nenhum agendamento encontrado.";
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            const row = tabelaAgendamentos.insertRow();
-            row.insertCell(0).colSpan = 5;
-            row.cells[0].innerText = "Erro ao consultar agendamentos.";
-        });
-}
-
-
-// Função para excluir agendamento
-async function excluirAgendamento(id) {
-    try {
-        const response = await fetch(`/excluir-agendamento?id=${id}`, { method: 'DELETE' });
-        if (!response.ok) throw new Error('Erro ao excluir agendamento');
-        alert('Agendamento excluído com sucesso!');
-        consultarAgendamentos(new Event('submit')); // Atualiza a lista após exclusão
-    } catch (error) {
-        console.error('Erro ao excluir agendamento:', error);
-        alert('Erro ao excluir agendamento');
-    }
-}
-
-// Fazer a chamada no bando de dados para carregar agendamento para edição no formulário
-async function carregarAgendamentoParaEdicao(id) {
-    try {
-        const response = await fetch(`/buscar-agendamento?id=${id}`);
-        if (!response.ok) throw new Error('Erro ao buscar agendamento');
-        const agendamento = await response.json();
-
-        // Preenche os campos do formulário com os dados do agendamento
-        document.getElementById('dataAgendamento').value = agendamento.data;
-        document.getElementById('horarioAgendamento').value = agendamento.horario;
-        document.getElementById('salaAgendamento').value = agendamento.sala;
-        document.getElementById('cpfCliente').value = agendamento.cpf_cliente;
-        document.getElementById('cpfProfissional').value = agendamento.cpf_profissional;
-
-        // Armazena o ID do agendamento para usá-lo na atualização
-        document.getElementById('formCadastroAgendamento').setAttribute('data-id', agendamento.id);
-
-        // Exibe o botão de atualização
-        document.getElementById('btnAtualizarAgendamento').style.display = 'inline-block';
-    } catch (error) {
-        console.error('Erro ao carregar agendamento para edição:', error);
-        alert('Erro ao carregar agendamento para edição');
-    }
-}
-
-// Função para atualizar agendamento mandando novos dados para o bando de dados
-async function atualizarAgendamento() {
-    const id = document.getElementById('formCadastroAgendamento').getAttribute('data-id');
-    const data = document.getElementById('dataAgendamento').value;
-    const horario = document.getElementById('horarioAgendamento').value;
-    const sala = document.getElementById('salaAgendamento').value;
-    const cpf_cliente = document.getElementById('cpfCliente').value;
-    const cpf_profissional = document.getElementById('cpfProfissional').value;
-
-    try {
-        const response = await fetch(`/atualizar-agendamento`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, data, horario, sala, cpf_cliente, cpf_profissional })
-        });
-
-        if (!response.ok) throw new Error('Erro ao atualizar agendamento');
-        alert('Agendamento atualizado com sucesso!');
-
-        // Oculta o botão de atualização e limpa o formulário
-        document.getElementById('btnAtualizarAgendamento').style.display = 'none';
-        document.getElementById('formCadastroAgendamento').reset();
-        consultarAgendamentos(new Event('submit')); // Atualiza a lista de agendamentos
-    } catch (error) {
-        console.error('Erro ao atualizar agendamento:', error);
-        alert('Erro ao atualizar agendamento');
-    }
-}
+});

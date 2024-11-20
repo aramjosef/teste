@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Consulta</title>
+        <link href="estilo.css" rel="stylesheet" type="text/css" />
+        <script src="consulta.js"></script>
+        <script src="index.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body class="body_c">
+        <div class="header">
+            <a href="cad_fornecedor.html">Fornecedor</a>
+            <a href="cad_funcionario.html">Funcionários</a>
+            <a href="cad_quarto.html">Quartos</a>
+            <a href="cad_serviços.html">Serviços</a>
+            <a href="cad_tipo_quarto.html">Tipo Quartos</a>
+            <a href="cadprod.html">Produtos</a>
+            <a href="cad_cliente.html">Clientes</a>
+            <a href="checkin.html">Check in</a>
+            <a href="checkout.html">Check out</a>
+            <a href="consulta.html">Consulta</a>
+        </div>
+        <div class="container">
+            <h1>Consulta</h1>
+            <div class="form-group">
+                <label for="Doc_cl">Documento cliente:</label>
+                <input type="text" id="Doc_cl" name="Doc" placeholder="Digite seu documento" required>
+            </div>
+            <div class="form-group">
+                <label for="numero_quarto">Número do Quarto:</label>
+                <input type="number" id="numero_quarto" name="numero_quarto" placeholder="Número do quarto" required>
+            </div>
+            <div class="form-group">
+                <label for="status_quarto">Status do Quarto:</label>
+                <select id="status_quarto" name="status_quarto">
+                    <option value="Ocupado">Ocupado</option>
+                    <option value="Desocupado">Desocupado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="data_en">Data de entrada:</label>
+                <input type="date" id="data_en" name="entrada">
+            </div>
+            <div class="form-group">
+                <label for="data_sa">Data de saída:</label>
+                <input type="date" id="data_sa" name="saida">
+            </div>
+            
+            <div class="form-group">
+                <button onclick="consultar(event)" type="submit">Consultar</button>
+            </div>
+
+            <table id="resultadoConsulta" border="1">
+                <thead>
+                    <tr>
+                        <th>CGM</th>
+                        <th>Nome</th>
+                        <th>Matéria</th>
+                        <th>Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Resultados serão inseridos aqui -->
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

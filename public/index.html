@@ -3,52 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu de Navegação</title>
-    <style>
-        /* Estilo básico para centralizar o menu e adicionar espaçamento */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        #customNav {
-            display: flex;
-            gap: 15px;
-            background-color: #333;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .customLink {
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .customLink:hover {
-            background-color: #555;
-        }
-    </style>
+    <link href="estilo.css" rel="stylesheet" type="text/css" />
+    <title>Página Inicial</title>
 </head>
-<body>
-    <nav>
-        <div id="customNav">
-            <a href="cad_fornecedor.html" class="customLink">Fornecedor</a>
-            <a href="cad_funcionario.html" class="customLink">Funcionários</a>
-            <a href="cad_quarto.html" class="customLink">Quartos</a>
-            <a href="cad_serviços.html" class="customLink">Serviços</a>
-            <a href="cad_tipo_quarto.html" class="customLink">Tipo Quartos</a>
-            <a href="cadprod.html" class="customLink">Produtos</a>
-            <a href="cad_cliente.html" class="customLink">Clientes</a>
-            <a href="checkin.html" class="customLink">Check in</a>
-            <a href="checkout.html" class="customLink">Check out</a>
+<body class = inicial>
+
+    </head>
+    <body>
+    <div class = "ape">
+        <div class = "cabe">
+            <a href="cad_cliente.html"><img src="img/all-vision-high-resolution-logo-transparent.png"></a>
         </div>
-    </nav>
+
+        <h1>Bem-vindo à página inicial do nosso projeto</h1>
+        <p>Nós alunos do ensino medio desenvolvemos um sistema de software inovador e eficiente para gerenciar as operações diárias de hotéis. Nossa solução abrange desde a gestão de reservas até o check-out, otimizando processos e proporcionando uma experiência aprimorada para hóspedes e funcionários.</p>  
+        <br>
+        <h3>Check-in e Check-out:</h3>
+        <ul>
+            <li>Processo de check-in agilizado e automatizado.</li>
+            <li>Emissão de relatórios de hospedagem detalhados.</li>
+            <li>Integração com sistemas de pagamento.</li>
+        </ul>
+        <br>
+        <h3>Gerenciamento de Quartos:</h3>
+        <ul>
+            <li>Controle da limpeza e manutenção dos quartos.</li>
+            <li>Definição de tipos de quartos e tarifas.</li>
+            <li>Visualização em tempo real da ocupação do hotel.</li>
+        </ul>
+        <br>
+        <h3>Benefícios:</h3>
+        <ul>
+            <li>Aumento da eficiência: Automação de processos e redução de tarefas manuais.</li>
+            <li>Redução de custos: Otimização do uso dos recursos e prevenção de erros.</li>
+            <li>Melhoria da experiência do hóspede: Atendimento personalizado e agilidade no check-in/check-out.</li>
+        </ul>
+        <br>
+        <h3>Criadores do projeto All Vision:</h3>
+        <div class="fundar">
+            <img alt="Gabriel" src="img/">
+            <img alt="Fernanda" src="img/">
+            <img alt="Aram" src="img/sua-foto.jpeg">
+        </div>
+        <br>
+        <h3>Tecnologia Utilizada:</h3>
+        <ul>
+            <li>Node com Express.</li>
+            <li>Json.</li>
+            <li>Banco de dados: SQLite.</li>
+            <li>Linguagem de programação: JavaScript.</li>
+        </ul>
+        <br>
+        <center>
+            <h3>Para ver o nosso projeto clique abaixo:</h3>
+        </center>
+        <div class="bot">        
+             <button><a href="cad_cliente.html">inicio</a></button>
+        </div>
+    </div>
+    
 </body>
 </html>

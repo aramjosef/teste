@@ -151,7 +151,6 @@ async function cadastrar_tipo_quarto() {
 
     alert('Tipo de quarto cadastrado com sucesso!');
 }
-
 document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('id_quarto').value = gerarIdQuarto();
 });
@@ -162,7 +161,7 @@ async function cadastrar_ci() {
     const dt_en = document.getElementById('data_en').value;
     const dt_sa = document.getElementById('data_sa').value;
     const status = document.getElementById('st').value;
-    alert('asdf');
+   
     await fetch('/cadastrar_ci', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
