@@ -364,6 +364,9 @@ app.post('/cadastrar_ci', (req, res) => {
 });
 
 
+
+
+
 // Rota para cadastrar um checkout
 app.post('/cadastrar_co', (req, res) => {
     const {  id_cliente2,
@@ -388,133 +391,111 @@ app.post('/cadastrar_co', (req, res) => {
         });
 });
 
-// Rota para buscar clientes
-app.get('/buscar-cliente', (req, res) => {
-    const query = req.query.query;
 
-    // Busca no banco de dados com base no nome, email ou código do cliente
-    db.all(`SELECT id, nome, email, codigo_cliente FROM clientes WHERE nome LIKE ? OR email LIKE ? OR codigo_cliente LIKE ?`,
-        [`%${query}%`, `%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar clientes:', err);
-                res.status(500).send('Erro ao buscar clientes');
-            } else {
-                res.json(rows);  // Retorna os clientes encontrados
-            }
-        });
+/////////////////////////////////////////////////
+/////////////////               ////////////////
+////////////////     APP GET   ////////////////
+///////////////               ////////////////
+//////////////               ////////////////
+////////////////////////////////////////////
+
+// Rota para consultar cliente por documento
+app.get('/consultarCliente', (req, res) => {
+    const { documento } = req.query;
+    db.get('SELECT * FROM clientes WHERE documento = ?', [documento], (err, row) => {
+        if (err) {
+            console.error('Erro ao consultar cliente:', err);
+            res.status(500).json({ error: 'Erro ao consultar cliente' });
+        } else if (row) {
+            res.json(row);
+        } else {
+            res.status(404).json({ error: 'Cliente não encontrado' });
+        }
+    });
 });
 
-// Rota para buscar quartos
-app.get('/buscar-quarto', (req, res) => {
-    const query = req.query.query;
-
-    // Busca no banco de dados com base no número do quarto ou tipo de quarto
-    db.all(`SELECT numero, tipo_quarto_id FROM quartos WHERE numero LIKE ? OR tipo_quarto_id LIKE ?`,
-        [`%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar quartos:', err);
-                res.status(500).send('Erro ao buscar quartos');
-            } else {
-                res.json(rows);  // Retorna os quartos encontrados
-            }
-        });
+// Rota para consultar quarto por número
+app.get('/consulta_quarto', (req, res) => {
+    const { numero } = req.query;
+    db.get('SELECT * FROM quartos WHERE numero = ?', [numero], (err, row) => {
+        if (err) {
+            console.error('Erro ao consultar quarto:', err);
+            res.status(500).json({ error: 'Erro ao consultar quarto' });
+        } else if (row) {
+            res.json(row);
+        } else {
+            res.status(404).json({ error: 'Quarto não encontrado' });
+        }
+    });
 });
 
-// Rota para buscar tipos de quarto
-app.get('/buscar-tipo-quarto', (req, res) => {
-    const query = req.query.query;
-
-    // Busca no banco de dados com base no tipo de quarto
-    db.all(`SELECT tipo_quarto_id, tipo_quarto FROM tipos_quartos WHERE tipo_quarto LIKE ?`,
-        [`%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar tipos de quarto:', err);
-                res.status(500).send('Erro ao buscar tipos de quarto');
-            } else {
-                res.json(rows);  // Retorna os tipos de quarto encontrados
-            }
-        });
+// Rota para consultar status dos quartos
+app.get('/consulta_status_quarto', (req, res) => {
+    const { status } = req.query;
+    db.all('SELECT * FROM quartos WHERE status = ?', [status], (err, rows) => {
+        if (err) {
+            console.error('Erro ao consultar status dos quartos:', err);
+            res.status(500).json({ error: 'Erro ao consultar status dos quartos' });
+        } else if (rows.length > 0) {
+            res.json(rows);
+        } else {
+            res.status(404).json({ error: 'Nenhum quarto encontrado com esse status' });
+        }
+    });
 });
 
-// Rota para buscar funcionários
-app.get('/buscar-funcionario', (req, res) => {
-    const query = req.query.query;
-
-    // Busca no banco de dados com base no nome ou CPF do funcionário
-    db.all(`SELECT id, nome, cpf FROM funcionarios WHERE nome LIKE ? OR cpf LIKE ?`,
-        [`%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar funcionários:', err);
-                res.status(500).send('Erro ao buscar funcionários');
-            } else {
-                res.json(rows);  // Retorna os funcionários encontrados
-            }
-        });
+// Rota para consultar check-ins por data de entrada
+app.get('/consulta_data_entrada', (req, res) => {
+    const { data_entrada } = req.query;
+    db.all('SELECT * FROM checkins WHERE data_en = ?', [data_entrada], (err, rows) => {
+        if (err) {
+            console.error('Erro ao consultar data de entrada:', err);
+            res.status(500).json({ error: 'Erro ao consultar data de entrada' });
+        } else if (rows.length > 0) {
+            res.json(rows);
+        } else {
+            res.status(404).json({ error: 'Nenhuma entrada encontrada para essa data' });
+        }
+    });
 });
 
-// Rota para buscar fornecedores
-app.get('/buscar-fornecedor', (req, res) => {
-    const query = req.query.query;
-
-    // Busca no banco de dados com base no nome ou CNPJ do fornecedor
-    db.all(`SELECT id, nome_completo, cnpj FROM fornecedores WHERE nome_completo LIKE ? OR cnpj LIKE ?`,
-        [`%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar fornecedores:', err);
-                res.status(500).send('Erro ao buscar fornecedores');
-            } else {
-                res.json(rows);  // Retorna os fornecedores encontrados
-            }
-        });
+// Rota para consultar check-outs por data de saída
+app.get('/consulta_data_saida', (req, res) => {
+    const { data_saida } = req.query;
+    db.all('SELECT * FROM checkouts WHERE data_saida = ?', [data_saida], (err, rows) => {
+        if (err) {
+            console.error('Erro ao consultar data de saída:', err);
+            res.status(500).json({ error: 'Erro ao consultar data de saída' });
+        } else if (rows.length > 0) {
+            res.json(rows);
+        } else {
+            res.status(404).json({ error: 'Nenhuma saída encontrada para essa data' });
+        }
+    });
 });
 
-// Rota para buscar produtos
-app.get('/buscar-produto', (req, res) => {
-    const query = req.query.query;
+// app.post('/api/consulta', (req, res) => {
+//     const { documentoCliente, numeroQuarto, statusQuarto, dataEntrada, dataSaida } = req.body;
 
-    // Busca no banco de dados com base no nome, descrição ou código do produto
-    db.all(`SELECT id, nome_produto, descricao, codigo_produto FROM produtos WHERE nome_produto LIKE ? OR descricao LIKE ? OR codigo_produto LIKE ?`,
-        [`%${query}%`, `%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar produtos:', err);
-                res.status(500).send('Erro ao buscar produtos');
-            } else {
-                res.json(rows);  // Retorna os produtos encontrados
-            }
-        });
-});
+//     // Exemplo de consulta ao banco de dados
+//     const resultados = [
+//         {
+//             documentoCliente: '123456789',
+//             numeroQuarto: '5',
+//             statusQuarto: 'Ocupado',
+//             dataEntrada: '2024-11-20',
+//             dataSaida: '2024-11-21'
+//         }
+        
+//         // Adicione mais resultados aqui
+//     ];
 
-// Rota para buscar checkins
-app.get('/buscar-checkin', (req, res) => {
-    const query = req.query.query;
+//     res.json(resultados);
+// });
 
-    // Busca no banco de dados com base no número do quarto ou data de entrada
-    db.all(`SELECT id, numero_quarto, data_en, data_sai FROM checkins WHERE numero_quarto LIKE ? OR data_en LIKE ? OR data_sai LIKE ?`,
-        [`%${query}%`, `%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar checkins:', err);
-                res.status(500).send('Erro ao buscar checkins');
-            } else {
-                res.json(rows);  // Retorna os checkins encontrados
-            }
-        });
-});
 
-// Rota para buscar checkouts
-app.get('/buscar-checkout', (req, res) => {
-    const query = req.query.query;
 
-    // Busca no banco de dados com base no número do quarto ou data de saída
-    db.all(`SELECT id, numero_quarto, data_en, data_sai FROM checkouts WHERE numero_quarto LIKE ? OR data_en LIKE ? OR data_sai LIKE ?`,
-        [`%${query}%`, `%${query}%`, `%${query}%`], (err, rows) => {
-            if (err) {
-                console.error('Erro ao buscar checkouts:', err);
-                res.status(500).send('Erro ao buscar checkouts');
-            } else {
-                res.json(rows);  // Retorna os checkouts encontrados
-            }
-        });
-});
+
 
 
 

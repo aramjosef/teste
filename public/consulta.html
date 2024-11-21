@@ -6,9 +6,8 @@
         <title>Consulta</title>
         <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
         <link href="estilo.css" rel="stylesheet" type="text/css" />
-        <script src="consulta.js"></script>
-        <script src="index.js"></script>
-        <script src="script.js"></script>
+        <script src="index.js" defer></script>
+        <script src="consulta.js" defer></script>
     </head>
     <body class="body_c">
         <div class="header">
@@ -24,52 +23,134 @@
             <a href="consulta.html">Consulta</a>
         </div>
         <div class="container">
-                <div class = "cabe">
-                    <a href="index.html"><img src="img/all-vision-high-resolution-logo-transparent.png"></a>
-                </div>
-            <h1>Consulta</h1>
-            <div class="form-group">
-                <label for="cdoc_cl">Documento cliente:</label>
-                <input type="text" id="cdoc_cl" name="Doc" placeholder="Digite seu documento" required>
-            </div>
-            <div class="form-group">
-                <label for="cnumero_quarto">Número do Quarto:</label>
-                <input type="number" id="cnumero_quarto" name="numero_quarto" placeholder="Número do quarto" required>
-            </div>
-            <div class="form-group">
-                <label for="cstatus_quarto">Status do Quarto:</label>
-                <select id="cstatus_quarto" name="status_quarto">
-                    <option value="Ocupado">Ocupado</option>
-                    <option value="Desocupado">Desocupado</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="cdata_en">Data de entrada:</label>
-                <input type="date" id="cdata_en" name="entrada">
-            </div>
-            <div class="form-group">
-                <label for="cdata_sa">Data de saída:</label>
-                <input type="date" id="cdata_sa" name="saida">
-            </div>
-            
-            <div class="form-group">
-                <button onclick="consultar(event)" type="submit">Consultar</button>
+            <div class="cabe">
+                <a href="index.html"><img src="img/all-vision-high-resolution-logo-transparent.png" alt="Logo All Vision"></a>
             </div>
 
-            <table id="resultadoConsulta" border="1">
-                <thead>
-                    <tr>
-                        <td>cdoc_cl</td>
-                        <td>cnum_q</td>
-                        <td>cstatus</td>
-                        <td>cdt_en</td>
-                        <td>cdt_sa</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Resultados serão inseridos aqui -->
-                </tbody>
-            </table>
-        </div>
-    </body>
+                <div class="container">
+                    <h1>Consultas</h1>
+
+                    <!-- Consulta Cliente -->
+                    <div class="form-section">
+                        <h2>Consulta Cliente</h2>
+                        <form onsubmit="consultarCliente(event)">
+                            <label for="documento">Documento do Cliente:</label>
+                            <input type="text" id="documento" name="documento" placeholder="Digite o documento" required>
+                            <button type="submit">Consultar Cliente</button>
+                        </form>
+
+                        <!-- Tabela de Resultados de Cliente -->
+                        <table id="resultadoConsultaCliente" border="1">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Endereço</th>
+                                    <th>País</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Consulta Quarto -->
+                    <div class="form-section">
+                        <h2>Consulta Quarto</h2>
+                        <form onsubmit="consultarQuarto(event)">
+                            <label for="numero">Número do Quarto:</label>
+                            <input type="text" id="numero" name="numero" placeholder="Digite o número do quarto" required>
+                            <button type="submit">Consultar Quarto</button>
+                        </form>
+
+                        <!-- Tabela de Resultados de Quarto -->
+                        <table id="resultadoConsultaQuarto" border="1">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Status</th>
+                                    <th>Tipo de Quarto</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Consulta Status do Quarto -->
+                    <div class="form-section">
+                        <h2>Consulta Status do Quarto</h2>
+                        <form onsubmit="consultarStatusQuarto(event)">
+                            <label for="status">Status do Quarto:</label>
+                            <select id="status" name="status" required>
+                                <option value="Ocupado">Ocupado</option>
+                                <option value="Desocupado">Desocupado</option>
+                            </select>
+                            <button type="submit">Consultar Status</button>
+                        </form>
+
+                        <!-- Tabela de Resultados de Status do Quarto -->
+                        <table id="resultadoConsultaStatusQuarto" border="1">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Status</th>
+                                    <th>Tipo de Quarto</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Consulta Data de Entrada -->
+                    <div class="form-section">
+                        <h2>Consulta Data de Entrada</h2>
+                        <form onsubmit="consultarDataEntrada(event)">
+                            <label for="data_entrada">Data de Entrada:</label>
+                            <input type="date" id="data_entrada" name="data_entrada" required>
+                            <button type="submit">Consultar Entrada</button>
+                        </form>
+
+                        <!-- Tabela de Resultados de Data de Entrada -->
+                        <table id="resultadoConsultaDataEntrada" border="1">
+                            <thead>
+                                <tr>
+                                    <th>ID Cliente</th>
+                                    <th>Número do Quarto</th>
+                                    <th>Data de Entrada</th>
+                                    <th>Data de Saída</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Consulta Data de Saída -->
+                    <div class="form-section">
+                        <h2>Consulta Data de Saída</h2>
+                        <form onsubmit="consultarDataSaida(event)">
+                            <label for="data_saida">Data de Saída:</label>
+                            <input type="date" id="data_saida" name="data_saida" required>
+                            <button type="submit">Consultar Saída</button>
+                        </form>
+
+                        <!-- Tabela de Resultados de Data de Saída -->
+                        <table id="resultadoConsultaDataSaida" border="1">
+                            <thead>
+                                <tr>
+                                    <th>ID Cliente</th>
+                                    <th>Número do Quarto</th>
+                                    <th>Data de Entrada</th>
+                                    <th>Data de Saída</th>
+                                    <th>Total de Pagamento</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </body>
 </html>

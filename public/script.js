@@ -194,3 +194,8 @@ async function cadastrar_co() {
     alert('Check-out cadastrado com sucesso!');
 }
 
+
+
+
+
+

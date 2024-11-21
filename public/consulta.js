@@ -1,101 +1,164 @@
-async function consultar() {
-    const Doc_cl = document.getElementById('Doc_cl').value;
-    const num_q = document.getElementById('numero_quarto').value
-    const status = document.getElementById('status_quarto').value;
-    const dt_en = document.getElementById('data_en').value;
-    const dt_sa = document.getElementById('data_sa').value;
-
-    const queryParams = new URLSearchParams();
-    if (Doc_cl) queryParams.append('Doc_cl', Doc_cl);
-    if (num_q) queryParams.append('numero_quarto', num_q);
-    if (status) queryParams.append('status_quarto', status);
-    if (dt_en) queryParams.append('data_en', dt_en);
-    if (dt_sa) queryParams.append('data_sa', dt_sa);
-
-    // Faz a requisição para a rota de consulta
-    const response = await fetch(`/consultar-alunos?${queryParams.toString()}`);
-
-    // Verifica se a resposta foi bem sucedida
-    if (!response.ok) {
-        console.error('Erro ao consultar alunos:', response.statusText);
-        return;
-    }
-
-    const alunos = await response.json();
-    console.log('Alunos retornados:', alunos); // Adiciona log para verificar dados retornados
-    const tabelaResultados = document.getElementById('resultadoConsulta');
-    const tbody = tabelaResultados.querySelector('tbody');
-    tbody.innerHTML = ''; // Limpa a tabela antes de adicionar resultados
-
-    if (alunos.length > 0) {
-        tabelaResultados.style.display = 'table';
-        alunos.forEach(aluno => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${aluno.Doc_cl}</td>
-                <td>${aluno.num_q}</td>
-                <td>${aluno.status}</td>
-                <td>${aluno.dt_en}</td>
-                <td>${aluno.dt_sa}</td>
-            `;
-            tbody.appendChild(row);
-        });
-      alert("ok");
+// Função para consultar cliente
+function consultarCliente(event) {
+    event.preventDefault();
+    const documento = document.getElementById('documento').value;
+    if (documento) {
+        fetch(`/consultarCliente?documento=${documento}`)
+            .then(response => response.json())
+            .then(cliente => {
+                const tbody = document.querySelector('#resultadoConsultaCliente tbody');
+                tbody.innerHTML = '';
+                if (cliente.error) {
+                    alert(cliente.error);
+                } else {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${cliente.nome}</td>
+                        <td>${cliente.email}</td>
+                        <td>${cliente.telefone}</td>
+                        <td>${cliente.endereco}</td>
+                        <td>${cliente.pais}</td>
+                        <td>${cliente.estado}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar cliente:', error);
+                alert('Erro ao consultar cliente!');
+            });
     } else {
-        tabelaResultados.style.display = 'none';
-        alert('Nenhum aluno encontrado com os critérios informados.');
+        alert('Por favor, insira um documento válido.');
     }
 }
 
-app.get('/consultar-alunos', (req, res) => {
-    const { Doc_cl, num_q, status, dt_en, dt_sa } = req.query;
-
-    let sql = `
-        SELECT 
-            clientes.documento AS Doc_cl,
-            quartos.numero AS num_q,
-            quartos.status AS status,
-            checkins.data_entrada AS dt_en,
-            checkins.data_saida AS dt_sa
-        FROM 
-            clientes
-        INNER JOIN checkins ON clientes.id = .cliente_id
-        INNER JOIN checkins ON clientes.id = checkins.cliente_id
-        INNER JOIN quartos ON checkins.quarto_id = quartos.id
-        WHERE 1=1
-    `; // 1=1 permite adicionar condições dinamicamente
-    const params = [];
-
-    if (Doc_cl) {
-        sql += " AND clientes.documento LIKE ?";
-        params.push(`%${Doc_cl}%`);
+// Função para consultar quarto
+function consultarQuarto(event) {
+    event.preventDefault();
+    const numero = document.getElementById('numero').value;
+    if (numero) {
+        fetch(`/consulta_quarto?numero=${numero}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('#resultadoConsultaQuarto tbody');
+                tbody.innerHTML = '';
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${data.numero}</td>
+                        <td>${data.status}</td>
+                        <td>${data.tipo_quarto_id}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar quarto:', error);
+                alert('Erro ao consultar quarto!');
+            });
+    } else {
+        alert('Por favor, insira um número de quarto válido.');
     }
+}
 
-    if (num_q) {
-        sql += " AND quartos.numero = ?";
-        params.push(`%${num_q}%`);
+// Função para consultar status do quarto
+function consultarStatusQuarto(event) {
+    event.preventDefault();
+    const status = document.getElementById('status').value;
+    fetch(`/consulta_status_quarto?status=${status}`)
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.querySelector('#resultadoConsultaStatusQuarto tbody');
+            tbody.innerHTML = '';
+            if (data.error) {
+                alert(data.error);
+            } else {
+                data.forEach(quarto => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${quarto.numero}</td>
+                        <td>${quarto.status}</td>
+                        <td>${quarto.tipo_quarto_id}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao consultar status dos quartos:', error);
+            alert('Erro ao consultar status!');
+        });
+}
+
+// Função para consultar data de entrada
+function consultarDataEntrada(event) {
+    event.preventDefault();
+    const dataEntrada = document.getElementById('data_entrada').value;
+    if (dataEntrada) {
+        fetch(`/consulta_data_entrada?data_entrada=${dataEntrada}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('#resultadoConsultaDataEntrada tbody');
+                tbody.innerHTML = '';
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    data.forEach(checkin => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${checkin.id_cliente}</td>
+                            <td>${checkin.numero_quarto}</td>
+                            <td>${checkin.data_en}</td>
+                            <td>${checkin.data_sai}</td>
+                            <td>${checkin.status}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar data de entrada:', error);
+                alert('Erro ao consultar data de entrada!');
+            });
+    } else {
+        alert('Por favor, selecione uma data de entrada válida.');
     }
+}
 
-    if (status) {
-        sql += " AND quartos.status = ?";
-        params.push(`%${status}%`);
+// Função para consultar data de saída
+function consultarDataSaida(event) {
+    event.preventDefault();
+    const dataSaida = document.getElementById('data_saida').value;
+    if (dataSaida) {
+        fetch(`/consulta_data_saida?data_saida=${dataSaida}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('#resultadoConsultaDataSaida tbody');
+                tbody.innerHTML = '';
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    data.forEach(checkout => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${checkout.id_cliente}</td>
+                            <td>${checkout.numero_quarto}</td>
+                            <td>${checkout.data_entrada}</td>
+                            <td>${checkout.data_saida}</td>
+                            <td>${checkout.total_pagamento}</td>
+                            <td>${checkout.status}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar data de saída:', error);
+                alert('Erro ao consultar data de saída!');
+            });
+    } else {
+        alert('Por favor, selecione uma data de saída válida.');
     }
-
-    if (dt_en) {
-        sql += " AND checkins.data_entrada >= ?";
-        params.push(`%${dt_en}%`);
-    }
-
-    if (dt_sa) {
-        sql += " AND checkins.data_saida <= ?";
-        params.push(`%${dt_sa}%`);
-    }
-
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-            console.error('Erro ao consultar clientes:', err);
-            return res.status(500).send('Erro ao consultar clientes.');
-        }
-        res.json(rows);
-    });
-});
+}

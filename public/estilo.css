@@ -156,6 +156,7 @@ h1 {
 }
 
 .header {
+font-weight: bold;
   position: fixed;
   top: 0;
   width: 100%;
