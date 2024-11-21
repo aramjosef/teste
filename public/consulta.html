@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Consulta</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
         <link href="estilo.css" rel="stylesheet" type="text/css" />
         <script src="consulta.js"></script>
         <script src="index.js"></script>
@@ -23,29 +24,32 @@
             <a href="consulta.html">Consulta</a>
         </div>
         <div class="container">
+                <div class = "cabe">
+                    <a href="index.html"><img src="img/all-vision-high-resolution-logo-transparent.png"></a>
+                </div>
             <h1>Consulta</h1>
             <div class="form-group">
-                <label for="Doc_cl">Documento cliente:</label>
-                <input type="text" id="Doc_cl" name="Doc" placeholder="Digite seu documento" required>
+                <label for="cdoc_cl">Documento cliente:</label>
+                <input type="text" id="cdoc_cl" name="Doc" placeholder="Digite seu documento" required>
             </div>
             <div class="form-group">
-                <label for="numero_quarto">Número do Quarto:</label>
-                <input type="number" id="numero_quarto" name="numero_quarto" placeholder="Número do quarto" required>
+                <label for="cnumero_quarto">Número do Quarto:</label>
+                <input type="number" id="cnumero_quarto" name="numero_quarto" placeholder="Número do quarto" required>
             </div>
             <div class="form-group">
-                <label for="status_quarto">Status do Quarto:</label>
-                <select id="status_quarto" name="status_quarto">
+                <label for="cstatus_quarto">Status do Quarto:</label>
+                <select id="cstatus_quarto" name="status_quarto">
                     <option value="Ocupado">Ocupado</option>
                     <option value="Desocupado">Desocupado</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="data_en">Data de entrada:</label>
-                <input type="date" id="data_en" name="entrada">
+                <label for="cdata_en">Data de entrada:</label>
+                <input type="date" id="cdata_en" name="entrada">
             </div>
             <div class="form-group">
-                <label for="data_sa">Data de saída:</label>
-                <input type="date" id="data_sa" name="saida">
+                <label for="cdata_sa">Data de saída:</label>
+                <input type="date" id="cdata_sa" name="saida">
             </div>
             
             <div class="form-group">
@@ -55,10 +59,11 @@
             <table id="resultadoConsulta" border="1">
                 <thead>
                     <tr>
-                        <th>CGM</th>
-                        <th>Nome</th>
-                        <th>Matéria</th>
-                        <th>Nota</th>
+                        <td>cdoc_cl</td>
+                        <td>cnum_q</td>
+                        <td>cstatus</td>
+                        <td>cdt_en</td>
+                        <td>cdt_sa</td>
                     </tr>
                 </thead>
                 <tbody>

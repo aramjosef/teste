@@ -1,8 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
 
+*{
+font-family: "Montserrat", sans-serif;
+font-optical-sizing: auto;
+font-weight: <weight>;
+font-style: normal;
+}
 .body_for {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -12,7 +19,7 @@
   background-color: #f0f0f0;
 }
 .body_f {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 20px 0; /* Adiciona margem ao topo e ao fundo */
   display: flex;
@@ -22,7 +29,7 @@
   padding-top: 110px; /* Adiciona espaço no topo */
 }
 .body_q {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -32,7 +39,7 @@
   background-color: #f0f0f0;
 }
 .body_s {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -42,7 +49,7 @@
   background-color: #f0f0f0;
 }
 .body_t {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -52,7 +59,7 @@
   background-color: #f0f0f0;
 }
 .body_p {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -63,7 +70,7 @@
   padding-top: 200px; /* Adiciona espaço no topo */
 }
 .body_c {
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -114,7 +121,7 @@ h1 {
 .form-group button {
   width: 100%;
   padding: 8px;
-  background-color: #007bff;
+  background-color: #1BC6F2;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -123,7 +130,7 @@ h1 {
 }
 
 .form-group button:hover {
-  background-color: #0056b3;
+  background-color: #13a8cd;
 }
 
 .result {
@@ -152,7 +159,7 @@ h1 {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color:#007bff;
+  background-color:#1BC6F2;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -164,6 +171,7 @@ h1 {
 }
 .header a:hover {
   text-decoration: underline;
+  color:grey;
 }
 
 .inicial{
@@ -176,7 +184,7 @@ h1 {
       font-optical-sizing: auto;
       font-weight: <weight>;
       font-style: normal;
-    }
+      }
 .ape{
     font-size: 19px;
       background-color: #fff;
@@ -239,4 +247,18 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.secreto{
+font-size: 19px;
+font-family: "Dancing Script", cursive;
+font-optical-sizing: auto;
+font-weight: <weight>;
+font-style: normal;
+}
+
+.nomes{
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 190px; /* Adiciona espaçamento entre as imagens */
+}
 
