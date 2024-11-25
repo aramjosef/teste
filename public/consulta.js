@@ -143,7 +143,7 @@ function consultarDataSaida(event) {
                     data.forEach(checkout => {
                         const tr = document.createElement('tr');
                         tr.innerHTML = `
-                            <td>${checkout.id_cliente}</td>
+                            <td>${checkout.id_cliente2}</td>
                             <td>${checkout.numero_quarto}</td>
                             <td>${checkout.data_entrada}</td>
                             <td>${checkout.data_saida}</td>
