@@ -12,15 +12,15 @@
 
 <body class="body_q">
     <div class="header">
-        <a href="cad_fornecedor.html">Fornecedor</a>
-        <a href="cad_funcionario.html">Funcionários</a>
-        <a href="cad_quarto.html">Quartos</a>
-        <a href="cad_serviços.html">Serviços</a>
-        <a href="cad_tipo_quarto.html">Tipo Quartos</a>
-        <a href="cadprod.html">Produtos</a>
         <a href="cad_cliente.html">Clientes</a>
         <a href="checkin.html">Check in</a>
         <a href="checkout.html">Check out</a>
+        <a href="cad_quarto.html">Quartos</a>
+        <a href="cad_tipo_quarto.html">Tipo Quartos</a>              
+        <a href="cad_fornecedor.html">Fornecedor</a>
+        <a href="cadprod.html">Produtos</a>  
+        <a href="cad_funcionario.html">Funcionários</a>
+        <a href="cad_serviços.html">Serviços</a>
         <a href="consulta.html">Consulta</a>
     </div>
     <div class="container">
@@ -55,7 +55,29 @@
         
     </div>
 
-    
+    <script>
+        // Função para carregar os tipos de quarto
+        async function carregarTiposDeQuarto() {
+            try {
+                const response = await fetch('/tipos_quarto');
+                const tipos = await response.json();
+                const tipoQuartoSelect = document.getElementById('tipo_quarto');
+                tipoQuartoSelect.innerHTML = ''; // Limpa as opções anteriores
+
+                tipos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.value = tipo.id; // Assume que o tipo tem um campo 'id'
+                    option.textContent = tipo.nome; // Assume que o tipo tem um campo 'nome'
+                    tipoQuartoSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar tipos de quarto:', error);
+            }
+        }
+
+        // Carregar os tipos de quarto quando a página for carregada
+        window.onload = carregarTiposDeQuarto;
+    </script>
 </body>
 
 </html>

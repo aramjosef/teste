@@ -162,3 +162,44 @@ function consultarDataSaida(event) {
         alert('Por favor, selecione uma data de saída válida.');
     }
 }
+
+async function atualizarCliente() {
+    const documento = document.getElementById('documentoAtualizar').value;
+    const nome = document.getElementById('nomeAtualizar').value;
+    const email = document.getElementById('emailAtualizar').value;
+    const telefone = document.getElementById('telefoneAtualizar').value;
+    const endereco = document.getElementById('enderecoAtualizar').value;
+    const pais = document.getElementById('paisAtualizar').value;
+    const estado = document.getElementById('estadoAtualizar').value;
+
+    if (!documento) {
+        alert('Por favor, insira o documento do cliente a ser atualizado.');
+        return;
+    }
+
+    await fetch('/atualizarCliente', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            documento,
+            nome,
+            email,
+            telefone,
+            endereco,
+            pais,
+            estado
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Cliente atualizado com sucesso!');
+        } else {
+            alert(data.error || 'Erro ao atualizar cliente.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao atualizar cliente:', error);
+        alert('Erro ao atualizar cliente.');
+    });
+}

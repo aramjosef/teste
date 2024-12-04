@@ -141,17 +141,6 @@ h1 {
   cursor: pointer;
   margin-top: 10px;
 }
-.form-group-t button {
-  width: 752%;
-  padding: 8px;
-  background-color: #1BC6F2;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
 .form-group button:hover {
   background-color: #13a8cd;
 }
@@ -179,9 +168,6 @@ h1 {
     resize: vertical;
 }
 
-#descricao{
-  width: 500px;
-}
 
 .header {
 font-weight: bold;
