@@ -474,28 +474,33 @@ app.get('/consulta_data_saida', (req, res) => {
     });
 });
 
-// app.post('/api/consulta', (req, res) => {
-//     const { documentoCliente, numeroQuarto, statusQuarto, dataEntrada, dataSaida } = req.body;
+app.put('/atualizarCliente', (req, res) => {
+    const { documento, nome, email, telefone, endereco, pais, estado } = req.body;
 
-//     // Exemplo de consulta ao banco de dados
-//     const resultados = [
-//         {
-//             documentoCliente: '123456789',
-//             numeroQuarto: '5',
-//             statusQuarto: 'Ocupado',
-//             dataEntrada: '2024-11-20',
-//             dataSaida: '2024-11-21'
-//         }
-        
-//         // Adicione mais resultados aqui
-//     ];
+    if (!documento) {
+        return res.status(400).json({ error: 'Documento é obrigatório para atualização.' });
+    }
 
-//     res.json(resultados);
-// });
+    const query = `
+        UPDATE clientes
+        SET nome = ?, email = ?, telefone = ?, endereco = ?, pais = ?, estado = ?
+        WHERE documento = ?
+    `;
+    const params = [nome, email, telefone, endereco, pais, estado, documento];
 
+    db.run(query, params, function(err) {
+        if (err) {
+            console.error('Erro ao atualizar cliente:', err);
+            return res.status(500).json({ error: 'Erro ao atualizar cliente.' });
+        }
 
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Cliente não encontrado.' });
+        }
 
-
+        res.json({ success: true });
+    });
+});
 
 
 
