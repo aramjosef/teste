@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Check in</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link href="estilo.css" rel="stylesheet" type="text/css" />
+    <script src="script.js"></script>
+</head>
+
+<body class="body_c">
+    <div class="header">
+        <nav>
+            <ul>
+                <li>
+                    <a href="cad_cliente.html" class="ada">Clientes</a>
+                    <ul class="submenu">
+                        <li><a href="checkin.html">Check-in</a></li>
+                        <li><a href="checkout.html">Check-out</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="cad_quarto.html" class="ada">Quartos</a>
+                    <ul class="submenu">
+                        <li><a href="cad_tipo_quarto.html">Tipos</a></li>
+                    </ul>
+                </li>
+                <li>
+                <a href="cad_funcionario.html" class="ada">Funcionários</a>
+                <ul class = "submenu">
+                    <li><a href="cad_servicos.html">Serviços</a></li>
+                <li><a href="consulta.html">Consulta</a></li>
+                    <li><a href="atualizar.html">Atualizar</a></li>
+                </ul>
+            </ul>
+        </nav>
+    </div>
+    </div>
+    <div class="container">
+        <div class = "cabe">
+            <a href="index.html"><img src="img/all-vision-high-resolution-logo-transparent.png"></a>
+        </div>
+        <h1>Check in</h1>
+        <div class="form-group">
+            <label for="id_cl">Id cliente:</label>
+            <input type="text" id="id_cl" name="id" placeholder="Id cliente" required>
+        </div>
+        <div class="form-group">
+            <label for="numero_quarto">Número do Quarto:</label>
+            <input type="number" id="numero_quarto" name="numero_quarto" placeholder="Número do quarto" required>
+        </div>
+        <div class="form-group">
+            <label for="data_en">Data de entrada:</label>
+            <input type="date" id="data_en" name="entrada">
+        </div>
+        <div class="form-group">
+            <label for="data_sa">Data de saída:</label>
+            <input type="date" id="data_sa" name="saida">
+        </div>
+        <div class="form-group">
+            <label for="st">Status:</label>
+            <select id="st" name="status">
+                <option value="ativo">Ativo</option>
+                <option value="nao_ativo">Não ativo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" onclick="cadastrar_ci()">Cadastrar</button>
+        </div>
+        
+    </div>
+    
+</body>
+
+</html>

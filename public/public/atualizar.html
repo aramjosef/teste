@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Atualizar</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+        <link href="estilo.css" rel="stylesheet" type="text/css" />
+        <script src="index.js" defer></script>
+        <script src="consulta.js" defer></script>
+    </head>
+        <body class="body_c">
+            <div class="header">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="cad_cliente.html" class="ada">Clientes</a>
+                            <ul class="submenu">
+                                <li><a href="checkin.html">Check-in</a></li>
+                                <li><a href="checkout.html">Check-out</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="cad_quarto.html" class="ada">Quartos</a>
+                            <ul class="submenu">
+                                <li><a href="cad_tipo_quarto.html">Tipos</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                        <a href="cad_funcionario.html" class="ada">Funcionários</a>
+                        <ul class = "submenu">
+                        <li><a href="cad_servicos.html">Serviços</a></li>
+                        <li><a href="consulta.html">Consulta</a></li>
+                            <li><a href="atualizar.html">Atualizar</a></li>
+                        </ul>
+                    </ul>
+                </nav>
+            </div>
+            </div>
+            <div class="container_consulta">
+                <div class="cabe">
+                    <a href="index.html"><img src="img/all-vision-high-resolution-logo-transparent.png" alt="Logo All Vision"></a>
+                </div>
+                            <h2>Atualizar Cliente</h2>    
+                            <form id="formAtualizarCliente" onsubmit="event.preventDefault(); atualizarCliente();">
+                                <label for="documentoAtualizar">Documento:</label>
+                                <input type="text" id="documentoAtualizar" placeholder="Digite o documento do cliente a ser atualizado" required>
+
+                                <label for="nomeAtualizar">Nome:</label>
+                                <input type="text" id="nomeAtualizar" placeholder="Digite o nome do cliente" required>
+
+                                <label for="emailAtualizar">Email:</label>
+                                <input type="email" id="emailAtualizar" placeholder="Digite o email do cliente" required>
+
+                                <label for="telefoneAtualizar">Telefone:</label>
+                                <input type="text" id="telefoneAtualizar" placeholder="Digite o telefone do cliente" required>
+
+                                <label for="enderecoAtualizar">Endereço:</label>
+                                <input type="text" id="enderecoAtualizar" placeholder="Digite o endereço do cliente" required>
+
+                                <label for="paisAtualizar">País:</label>
+                                <input type="text" id="paisAtualizar" placeholder="Digite o país do cliente" required>
+
+                                <label for="estadoAtualizar">Estado:</label>
+                                <input type="text" id="estadoAtualizar" placeholder="Digite o estado do cliente" required>
+
+                                <button type="submit">Atualizar Cliente</button>
+                            </form>
+            </div>
+
+    </body>
+</html>
